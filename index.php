@@ -1,12 +1,12 @@
 <meta charset="utf-8">
 <title>Charla de DrFrankNorton.</title>
 <h1>Charla de DrFrankNorton.</h1>
-<textarea id="demo"style="width:100%;height:50%;overflow:hidden"></textarea>
-<div id="fecha"style="width:100%"></div>
+<div id="demo"></div>
 <form method="POST"action="index.php">
-    <textarea name="mensaje"class="enviarmensaje"style="width:100%;height:25%"required="required"></textarea>
+    <input id="apodo"name="user"required="required"maxlength="20"placeholder="Introduce tu apodo."style="width:100%;color:#fff">
+    <textarea name="mensaje"class="enviarmensaje"style="width:100%;height:25%;color:#fff"maxlength="20"required="required"></textarea>
     <br>
-	<input type="submit"name="submit"value="Enviar mensaje."class="enviarmensaje"style="width:100%">
+	<input type="submit"name="submit"value="Enviar mensaje."class="enviarmensaje"style="width:100%;color:#fff">
 </form>
 <?php
 if(
@@ -14,9 +14,9 @@ if(
 ){
     $contenidoPrevio=file_get_contents("./datos/mensajes.txt");
 
-    $mensaje = "Invitado/a:\n".$_POST["mensaje"];
+    $mensaje = $_POST['user'].": ".$_POST["mensaje"];
 
-    $testmsg = strtolower($_POST["mensaje"]);
+    $testmsg = strtolower($mensaje);
         
     if(!(
             str_contains($testmsg,'put')
@@ -66,19 +66,55 @@ if(
             str_contains($testmsg,'mierd')
             ||
             str_contains($testmsg,'rat')
+            ||
+            str_contains($testmsg,'gay')
+            ||
+            str_contains($testmsg,'maric')
+            ||
+            str_contains($testmsg,'homosex')
+            ||
+            str_contains($testmsg,'dumb')
+            ||
+            str_contains($testmsg,'derp')
+            ||
+            str_contains($testmsg,'mongol')
     )){
-		file_put_contents("./datos/mensajes.txt", $contenidoPrevio ."\n\n". $mensaje);
+        if(!(
+            str_contains($testmsg,'>')
+            ||
+            str_contains($testmsg,'<')
+            ||
+            str_contains($testmsg,'/')
+            ||
+            str_contains($testmsg,'.')
+        )){
+     		file_put_contents("./datos/mensajes.txt", $contenidoPrevio ."<br>". $mensaje);
+        }else{
+        	file_put_contents("./datos/mensajes.txt", $contenidoPrevio ."<br>"."Command not admited.");
+        }
     }else{
-   		file_put_contents("./datos/mensajes.txt", $contenidoPrevio ."\n\nPlz, moderate your language.");
+   		file_put_contents("./datos/mensajes.txt", $contenidoPrevio ."<br>"."Plz, moderate your language.");
     }
 }
 ?>
 <script type="module">
+if(
+    localStorage.apodo!=null
+    ||
+    localStorage.apodo!=undefined
+    ||
+    localStorage.apodo!=NaN
+    ||
+    localStorage.apodo!=''
+){
+    apodo.value=localStorage.apodo
+}
 const render=()=>{
 	setTimeout(render,500)
-    if(location.href!=="http://charladrfranknortongl.atwebpages.com/"){
-    	location.replace("http://charladrfranknortongl.atwebpages.com/")
-    }
+	localStorage.apodo=apodo.value
+	if(location.href!=="http://charladedrfrank.000webhostapp.com/"){
+		location.replace("http://charladedrfrank.000webhostapp.com/")
+	}
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 	    if (this.readyState == 4 && this.status == 200) {
@@ -88,74 +124,50 @@ const render=()=>{
 	};
 	xhttp.open("GET", "./puentear.php", true);
 	xhttp.send();
+    document.getElementById("demo").scrollTop = 10**10;
 }
 render()
 </script>
 <style>
-        textarea {
-        		resize: none;
-        }
         body{
-        		font-family:consolas;
+        	font-family:consolas;
         }
         #fecha{
-                background-color:#004488;
-                border:8px solid #000000;
-                color:#000000;
-                font-weight:bold;
-                text-decoration: none;
-                font-size:20px;
-                word-wrap: nowrap;
-                white-space: nowrap;
-                display:inline-block;
-                box-shadow:8px 8px 4px #000;
-                text-shadow:4px 4px 4px #000;
-                color: #fff;
-                transition:1s;
+                overflow: hidden;
+                width: 100%;
+                box-shadow:8px 8px 8px #000;
+                text-shadow:8px 8px 8px #000;
+                background-color:#048;
+                border:8px solid #000;
+				transition:1s;
         }
         #fecha:hover{
-                background-color:#0066bb;
-                border:8px solid #000000;
-                color:#000000;
-                font-weight:bold;
-                text-decoration: none;
-                font-size:20px;
-                word-wrap: nowrap;
-                white-space: nowrap;
-                display:inline-block;
-                box-shadow:8px 8px 4px #000;
-                text-shadow:4px 4px 4px #000;
-                color: #fff;
+                overflow: hidden;
+                box-shadow:8px 8px 8px #000;
+                text-shadow:8px 8px 8px #000;
+                background-color:#08f;
+                width:100%;
+                border:8px solid #000;
                 transition:1s;
         }
         #demo{
-                background-color:#004488;
-                border:8px solid #000000;
-                color:#000000;
-                font-weight:bold;
-                text-decoration: none;
-                font-size:20px;
-                word-wrap: nowrap;
-                white-space: nowrap;
-                display:inline-block;
-                box-shadow:8px 8px 4px #000;
-                text-shadow:4px 4px 4px #000;
-                color: #fff;
+                overflow: hidden;
+                box-shadow:8px 8px 8px #000;
+                text-shadow:8px 8px 8px #000;
+                background-color:#048;
+                width:100%;
+                height:50%;
+                border:8px solid #000;
                 transition:1s;
         }
         #demo:hover{
-                background-color:#0066bb;
-                border:8px solid #000000;
-                color:#000000;
-                font-weight:bold;
-                text-decoration: none;
-                font-size:20px;
-                word-wrap: nowrap;
-                white-space: nowrap;
-                display:inline-block;
-                box-shadow:8px 8px 4px #000;
-                text-shadow:4px 4px 4px #000;
-                color: #fff;
+                overflow: hidden;
+                box-shadow:8px 8px 8px #000;
+                text-shadow:8px 8px 8px #000;
+                background-color:#08f;
+                width:100%;
+                height:50%;
+                border:8px solid #000;
                 transition:1s;
         }
         ::placeholder{
@@ -208,13 +220,12 @@ render()
                 color:#000000;
                 font-weight:bold;
                 text-decoration: none;
-                font-size:20px;
+                font-size:25px;
                 word-wrap: nowrap;
                 white-space: nowrap;
                 display:inline-block;
                 box-shadow:8px 8px 4px #000;
                 text-shadow:4px 4px 4px #000;
-                color: #fff;
                 transition:1s;
         }
         .enviarmensaje:hover{
@@ -223,13 +234,12 @@ render()
                 color:#000000;
                 font-weight:bold;
                 text-decoration: none;
-                font-size:20px;
+                font-size:25px;
                 word-wrap: nowrap;
                 white-space: nowrap;
                 display:inline-block;
                 box-shadow:8px 8px 4px #000;
                 text-shadow:4px 4px 4px #000;
-                color: #fff;
                 transition:1s;
         }
         input{
@@ -238,13 +248,12 @@ render()
                 color:#000000;
                 font-weight:bold;
                 text-decoration: none;
-                font-size:15px;
+                font-size:25px;
                 word-wrap: nowrap;
                 white-space: nowrap;
                 display:inline-block;
                 box-shadow:8px 8px 4px #000;
                 text-shadow:8px 8px 4px #000;
-                color: #fff;
         }
         input:hover{
                 background-color:#0066bb;
@@ -252,20 +261,19 @@ render()
                 color:#000000;
                 font-weight:bold;
                 text-decoration: none;
-                font-size:15px;
+                font-size:25px;
                 word-wrap: nowrap;
                 white-space: nowrap;
                 display:inline-block;
                 box-shadow:8px 8px 4px #000;
                 text-shadow:8px 8px 4px #000;
-                color: #fff;
         }
         body{
                 background-color:#0088ff;
                 color:#fff;
                 font-weight:bold;
                 text-decoration:none;
-                font-size:15px;
+                font-size:25px;
                 overflow:hidden;
         }
 
