@@ -1,1 +1,1 @@
-http://charladedrfrank.000webhostapp.com/
+Download those files only if u want to make a chat.
